@@ -4,6 +4,7 @@ module.exports = {
     "plugin:vue/recommended",
     "eslint:recommended",
     "plugin:prettier/recommended",
+    // "prettier",
   ],
   parserOptions: {
     parser: "@babel/eslint-parser",
@@ -12,5 +13,9 @@ module.exports = {
   plugins: ["vue"],
   rules: {
     // enable additional rules
+    "prettier/prettier": "off",
+    "no-undef": "off",
+    "vue/multi-word-component-names": "off",
+    // "vue/attributes-order": "off",
   },
 };
