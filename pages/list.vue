@@ -1,14 +1,13 @@
 <template>
-  <div>
-    <h1>Welcome to the homepage!!</h1>
-    <ul>
-      <li>dkssi</li>
-    </ul>
-    <ul>
+  <div class="p-10 w-full h-full flex flex-col items-center">
+    <h1 class="text-5xl font- font-bold">게시물</h1>
+
+    <ul class="w-full border-2 divide-teal-950 divide-y divide-solid">
       <li
         v-for="(board, i) in boards"
         :key="i"
-        class="block w-screen p-5 border-2 border-indigo-600"
+        class="p-5 w-full cursor-pointer"
+        @click="onClickMove(board._id)"
       >
         <NuxtLink :to="`/boards/${board._id}`">{{ board.title }}</NuxtLink>
       </li>
@@ -19,9 +18,12 @@
 // When accessing /posts/1, route.params.id will be 1
 import axios from "axios";
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 export default {
   setup() {
     const boards = ref([]);
+    const router = useRouter();
+
     const fetchBoards = async () => {
       await axios
         .get("http://localhost:4000/boards")
@@ -34,12 +36,22 @@ export default {
       fetchBoards();
       console.log(boards);
     });
-
+    const onClickMove = id => {
+      router.push(`/boards/${id}`);
+      console.log(id);
+    };
     return {
       boards,
+      onClickMove,
     };
   },
 };
 </script>
 
-<style></style>
+<style>
+*,
+::before,
+::after {
+  border-style: none;
+}
+</style>
