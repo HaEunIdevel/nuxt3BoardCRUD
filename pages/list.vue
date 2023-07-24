@@ -2,7 +2,7 @@
   <div class="p-10 w-full h-full flex flex-col items-center gap-y-10">
     <h1 class="text-5xl font-bold">게시물</h1>
 
-    <ul class="w-3/5 divide-teal-500 divide-y divide-solid">
+    <ul v-if="boards" class="w-3/5 divide-teal-500 divide-y divide-solid">
       <li
         v-for="(board, i) in boards"
         :key="i"
@@ -12,6 +12,7 @@
         <NuxtLink :to="`/boards/${board._id}`">{{ board.title }}</NuxtLink>
       </li>
     </ul>
+    <div v-else>게시물이 존재하지 않습니다</div>
     <div class="w-3/5 h-12 flex justify-end">
       <button
         class="w-32 h-full border border-teal-500 hover:bg-stone-100 rounded"
@@ -29,7 +30,7 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 export default {
   setup() {
-    const boards = ref([]);
+    const boards = ref(null);
     const router = useRouter();
 
     const fetchBoards = async () => {
