@@ -2,7 +2,6 @@
   <section>
     <div>{{ board.title }}</div>
     <div>{{ board.contents }}</div>
-    <div>qkq</div>
   </section>
 </template>
 <script>

@@ -1,28 +1,30 @@
 <template>
-  <section class="w-screen h-screen p-10 flex flex-col gap-10">
+  <section class="w-screen h-screen p-10 flex flex-col gap-10 items-center">
+    <h1 class="text-4xl font-bold">게시물 등록</h1>
     <input
       v-model="title"
       type="text"
       placeholder="제목을 입력해주세요"
-      class="w-full h-12 p-5 border-2 border-cyan-800"
+      class="w-full h-12 p-5 border-2 rounded border-cyan-800"
     />
     <textarea
       v-model="contents"
       placeholder="내용을 입력해주세요"
       class="w-full h-1/5 p-5 border-2 rounded border-cyan-800 resize-none"
+      @keyup.enter="sendData"
     ></textarea>
-    <div>
+    <div class="flex gap-14 justify-center">
       <button
-        class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100"
-        @click="sendData"
-      >
-        게시물 등록
-      </button>
-      <button
-        class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100"
+        class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100 p-3"
         @click="moveList"
       >
         목록으로
+      </button>
+      <button
+        class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100 p-3"
+        @click="sendData"
+      >
+        등록
       </button>
     </div>
   </section>
@@ -41,8 +43,8 @@ export default {
       if (!contents.value || !title.value) {
         return alert("내용을 입력해주세요");
       }
-      console.log("title:", title.value);
-      console.log("contents:", contents.value);
+      // console.log("title:", title.value);
+      // console.log("contents:", contents.value);
       const toWrite = {
         contents: contents.value,
         title: title.value,
