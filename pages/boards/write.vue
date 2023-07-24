@@ -15,13 +15,13 @@
     ></textarea>
     <div class="flex gap-14 justify-center">
       <button
-        class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100 p-3"
+        class="w-24 h-12 border border-teal-500 hover:bg-stone-100 rounded p-3"
         @click="moveList"
       >
         목록으로
       </button>
       <button
-        class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100 p-3"
+        class="w-24 h-12 border border-teal-500 hover:bg-stone-100 rounded p-3"
         @click="sendData"
       >
         등록
@@ -59,6 +59,7 @@ export default {
           console.log(error);
         });
     };
+
     const moveList = () => {
       router.push("/");
     };
