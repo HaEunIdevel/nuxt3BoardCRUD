@@ -1,27 +1,46 @@
 <template>
-  <section class="w-screen h-screen">
+  <section class="w-screen h-screen p-10 flex flex-col gap-10">
     <input
       v-model="title"
       type="text"
-      class="w-screen h-12 p-5 border-2 border-indigo-600"
+      placeholder="제목을 입력해주세요"
+      class="w-full h-12 p-5 border-2 border-cyan-800"
     />
     <textarea
       v-model="contents"
       placeholder="내용을 입력해주세요"
-      class="w-screen h-1/5 border-2 border-red-600"
+      class="w-full h-1/5 p-5 border-2 rounded border-cyan-800 resize-none"
     ></textarea>
-    <button @click="sendData">데이터 전송</button>
+    <div>
+      <button
+        class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100"
+        @click="sendData"
+      >
+        게시물 등록
+      </button>
+      <button
+        class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100"
+        @click="moveList"
+      >
+        목록으로
+      </button>
+    </div>
   </section>
 </template>
 
 <script>
-import { ref } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
+
 export default {
   setup() {
     const title = ref("");
     const contents = ref("");
+    const router = useRouter();
     const sendData = () => {
+      if (!contents.value || !title.value) {
+        return alert("내용을 입력해주세요");
+      }
       console.log("title:", title.value);
       console.log("contents:", contents.value);
       const toWrite = {
@@ -30,26 +49,24 @@ export default {
       };
       axios
         .post("http://localhost:4000/boards", toWrite)
-        .then((res) => {
-          console.log("등록완료");
-          console.log(res.data);
+        .then(() => {
+          alert("등록완료");
+          router.push("/");
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
+    };
+    const moveList = () => {
+      router.push("/");
     };
 
     return {
       title,
       contents,
       sendData,
+      moveList,
     };
   },
 };
 </script>
-
-<style>
-* {
-  padding: 10px;
-}
-</style>

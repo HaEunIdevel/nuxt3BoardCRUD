@@ -25,8 +25,8 @@ export default {
     const fetchBoards = async () => {
       await axios
         .get("http://localhost:4000/boards")
-        .then((res) => (boards.value = res.data))
-        .catch((error) => {
+        .then(res => (boards.value = res.data))
+        .catch(error => {
           console.log(error);
         });
     };
