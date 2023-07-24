@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10 w-full h-full flex flex-col items-center">
+  <div class="p-10 w-full h-full flex flex-col items-center gap-y-10">
     <h1 class="text-5xl font-bold">게시물</h1>
 
     <ul class="w-3/5 divide-teal-500 divide-y divide-solid">
