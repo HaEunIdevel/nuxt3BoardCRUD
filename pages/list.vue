@@ -1,68 +1,35 @@
 <template>
-  <div class="p-10 w-full h-full flex flex-col items-center gap-y-10">
-    <h1 class="text-5xl font-bold">게시물</h1>
-
-    <ul v-if="boards" class="w-3/5 divide-teal-500 divide-y divide-solid">
-      <li
-        v-for="(board, i) in boards"
-        :key="i"
-        class="p-5 w-full cursor-pointer hover:bg-stone-100"
-        @click="MoveDetail(board._id)"
+  <div class="flex flex-col items-center gap-14">
+    <h2 class="text-3xl">자유게시판</h2>
+    <div class="w-full flex">
+      <NuxtLink
+        :to="`/boards/write`"
+        class="w-32 h-12 border border-green-800 hover:bg-gray-100 p-3 flex items-center justify-center"
+        >작성하기</NuxtLink
       >
-        <NuxtLink :to="`/boards/${board._id}`">{{ board.title }}</NuxtLink>
-      </li>
-    </ul>
-    <div v-else>게시물이 존재하지 않습니다</div>
-    <div class="w-3/5 h-12 flex justify-end">
-      <button
-        class="w-32 h-full border border-teal-500 hover:bg-stone-100 rounded"
-        @click="MoveToWrite"
-      >
-        등록하기
-      </button>
     </div>
+    <board-list :boards="boards"></board-list>
   </div>
 </template>
-<script>
-// When accessing /posts/1, route.params.id will be 1
-import axios from "axios";
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-export default {
-  setup() {
-    const boards = ref(null);
-    const router = useRouter();
 
-    const fetchBoards = async () => {
-      await axios
-        .get("http://localhost:4000/boards")
-        .then(res => (boards.value = res.data))
-        .catch(error => {
-          console.log(error);
-        });
-    };
+<script>
+import usePost from "../components/commons/api.js";
+import boardList from "../components/boardList.vue";
+import { onMounted } from "vue";
+export default {
+  components: { boardList },
+  setup() {
+    const { boards, fetchBoards } = usePost();
+
     onMounted(() => {
       fetchBoards();
     });
-    const MoveDetail = id => {
-      router.push(`/boards/${id}`);
-      console.log(id);
-    };
-    const MoveToWrite = () => {
-      router.push("/boards/write");
-    };
+
     return {
       boards,
-      MoveDetail,
-      MoveToWrite,
     };
   },
 };
 </script>
 
-<style scoped>
-::before,
-::after {
-  border-style: none;
-}
-</style>
+<style></style>

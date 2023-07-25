@@ -1,13 +1,28 @@
 <template>
-  <section class="w-screen flex flex-col">
-    <div class="h-10 bg-teal-950 mb-20"></div>
-
-    <div class="w-screen h-20 bg-emerald-300" />
+  <section class="w-screen flex flex-col p-10">
+    <img
+      src="/nuxt-logo.png"
+      class="w-20 h-20 cursor-pointer"
+      @click="moveToMain"
+    />
+    <!--<div class="w-screen h-20 bg-emerald-300" /> -->
   </section>
 </template>
 
 <script>
-export default {};
+import { useRouter } from "vue-router";
+export default {
+  setup() {
+    const router = useRouter();
+    const moveToMain = () => {
+      router.push("/");
+    };
+
+    return {
+      moveToMain,
+    };
+  },
+};
 </script>
 
 <style></style>
