@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto p-8">
     <h1 class="text-4xl font-semibold mb-8">{{ data?.board.title }}</h1>
-    <p id="scrollSettings" class="h-1/6 overflow-auto text-gray-600">
+    <p id="scrollSettings" class="h-1/6 overflow-auto text-gray-600 text-xl">
       {{ data?.board.contents }}
     </p>
   </div>
