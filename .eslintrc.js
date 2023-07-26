@@ -18,5 +18,6 @@ module.exports = {
     "vue/multi-word-component-names": "off",
     // "vue/attributes-order": "off",
     "vue/v-on-event-hyphenation": "off",
+    "vue/html-self-closing": "off",
   },
 };

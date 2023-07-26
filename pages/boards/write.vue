@@ -22,23 +22,29 @@
 import BoardWriteForm from "../../components/boardWriteForm.vue";
 import usePosts from "../../components/commons/api.js";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   components: { BoardWriteForm },
   setup() {
-    const { createBoard } = usePosts();
+    const router = useRouter();
+    const { createBoard, fetchBoards } = usePosts();
 
     const title = ref("");
     const contents = ref("");
 
     const onClickCreateBoard = async () => {
       const createItem = {
-        title: title.value.replace(/\n/g, "<br>"),
-        contents: contents.value.replace(/\n/g, "<br>"),
+        title: String(title.value).replace(/(\n|\r\n)/g, "<br/>"),
+        contents: String(contents.value).replace(/(\n|\r\n)/g, "<br/>"),
       };
 
-      // await createBoard(createItem);
-      console.log("hi", createItem);
+      await createBoard(createItem);
+      console.log("줄바꿈 테스트", createItem);
+      alert("게시글이 등록되었습니다");
+
+      await fetchBoards();
+      router.push("/");
     };
     const setTitle = value => {
       title.value = value;

@@ -1,8 +1,6 @@
 import { ref } from "vue";
 import axios from "axios";
-import { useRouter } from "vue-router";
 
-const router = useRouter();
 const boards = ref(null);
 
 const fetchBoards = async () => {
@@ -29,7 +27,6 @@ const createBoard = async Item => {
   try {
     const res = await axios.post("http://localhost:4000/boards", Item);
     boards.value.push(res.data);
-    router.push("/");
   } catch (err) {
     console.log(err);
   }

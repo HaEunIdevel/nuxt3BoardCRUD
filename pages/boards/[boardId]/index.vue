@@ -1,8 +1,8 @@
 <template>
   <div class="w-10/12 flex flex-col items-center mx-auto">
-    <section class="w-full border-b-2 border-green-800 mb-12">
+    <section class="w-full border-b-2 border-green-800 mb-12 whitespace-pre-line">
       <h1 class="text-4xl font-semibold mb-8 h-24">
-        {{ data?.board.title }}
+        {{ data?.board.title.replace(/<br\s*\/?>/g, "\n") }}
       </h1>
       <div class="flex justify-between pb-12">
         <span>아무개</span>
@@ -10,8 +10,8 @@
       </div>
     </section>
     <section class="w-full">
-      <p id="scrollSettings" class="h-1/6 overflow-auto text-gray-600 text-xl">
-        {{ data?.board.contents }}
+      <p id="scrollSettings" class="h-1/6 overflow-auto text-gray-600 text-xl whitespace-pre-line">
+        {{ data?.board.contents.replace(/<br\s*\/?>/g, "\n") }}
       </p>
     </section>
     <section class="h-24 w-full flex justify-center items-center gap-12 pt-10">
