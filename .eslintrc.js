@@ -17,5 +17,6 @@ module.exports = {
     "no-undef": "off",
     "vue/multi-word-component-names": "off",
     // "vue/attributes-order": "off",
+    "vue/v-on-event-hyphenation": "off",
   },
 };
