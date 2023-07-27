@@ -1,11 +1,12 @@
 <template>
 
- <li class="flex flex-col gap-4 lg:p-4 p-2  rounded-lg  w-full">
-
 
             <NuxtLink :to="`/boards/${board._id}`" class="flex items-center justify-between w-full p-5  hover:bg-gray-100 cursor-pointer"
             
             >
+ <li class="flex flex-col gap-4 lg:p-4 p-2  rounded-lg  w-full">
+
+
 
                 <div class="lg:flex md:flex items-center">
                 <!-- <div class="h-12 w-12 mb-2 lg:mb-0 border md:mb-0 rounded-full mr-3"></div> -->
@@ -36,10 +37,10 @@
                 </div>
 
                 
-            </NuxtLink>
+
                 
         </li>
-            
+                        </NuxtLink>
       
 <!--  -->
 <!--  -->
