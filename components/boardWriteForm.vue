@@ -1,24 +1,98 @@
 <template>
-  <form class="w-9/12 mx-auto" @submit="handleSubmit">
-    <div class="mb-4">
-      <textarea
-        v-if="type === 'text'"
-        :placeholder="placeholder"
-        @input="updateValue"
-      />
-      <textarea
-        v-else-if="type === 'textarea'"
-        :placeholder="placeholder"
-        @input="updateValue"
-      ></textarea>
-      <!-- :class="inputClass" -->
-    </div>
-  </form>
+  <div>
+    <form @submit="handleSubmit">
+      <div>
+        <div class="pb-12">
+          <section class="grid grid-cols-1 gap-x-6 sm:grid-cols-6">
+            <!--  -->
+            <!--  -->
+            <!--  -->
+
+            <div class="col-span-full">
+              <label
+                :for="id"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >{{ label }}</label
+              >
+              <div class="mt-2">
+                <input
+                  v-if="type === 'text'"
+                  :id="id"
+                  type="text"
+                  :value="value"
+                  class="block w-full p-3 h-12 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  :placeholder="placeholder"
+                  @input="updateValue"
+                />
+              </div>
+            </div>
+
+            <!--  -->
+            <!--  -->
+            <!--  -->
+            <div class="col-span-full">
+              <div class="mt-2">
+                <textarea
+                  v-if="type === 'textarea'"
+                  :id="id"
+                  :placeholder="placeholder"
+                  :value="value"
+                  class="block w-full h-48 resize-none p-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  @input="updateValue"
+                />
+              </div>
+            </div>
+
+            <!--  -->
+            <!--  -->
+            <!--  -->
+            <div v-if="type === 'textarea'" class="col-span-full mt-6">
+              <label
+                for="cover-photo"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >사진</label
+              >
+              <div
+                class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
+              >
+                <div class="text-center">
+                  <PhotoIcon
+                    class="mx-auto h-12 w-12 text-gray-300"
+                    aria-hidden="true"
+                  />
+                  <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                    <label
+                      for="file-upload"
+                      class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                    >
+                      <span>Upload a file</span>
+                      <input
+                        id="file-upload"
+                        name="file-upload"
+                        type="file"
+                        class="sr-only"
+                      />
+                    </label>
+                    <p class="pl-1">or drag and drop</p>
+                  </div>
+                  <p class="text-xs leading-5 text-gray-600">
+                    PNG, JPG, GIF up to 10MB
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- :class="inputClass" -->
+      </div>
+    </form>
+  </div>
 </template>
 
 <script setup>
 import { defineProps, defineEmits } from "vue";
-defineProps(["type", "value", "placeholder"]);
+defineProps(["type", "value", "placeholder", "id", "label"]);
 
 const emit = defineEmits(["updateValue"]);
 const updateValue = e => {

@@ -1,79 +1,101 @@
 <template>
-  <div>
-    <section class="w-screen h-screen p-10 flex flex-col gap-10 items-center">
-      <h1 class="text-4xl font-bold">게시물 수정</h1>
-      <input
-        v-model="title"
-        type="text"
-        placeholder="제목을 입력해주세요"
-        class="w-full h-12 p-5 border-2 rounded border-cyan-800"
-      />
-      <textarea
-        v-model="contents"
-        placeholder="내용을 입력해주세요"
-        class="w-full h-1/5 p-5 border-2 rounded border-cyan-800 resize-none"
-        @keyup.enter="sendData"
-      ></textarea>
-      <div class="flex gap-14 justify-center">
+  <div class="mx-auto max-w-7xl sm:py-32 lg:px-8">
+    <h1 class="font-bold text-3xl pb-10">수정</h1>
+    <template v-if="data">
+      <board-write-form
+        id="title"
+        label="제목"
+        :type="`text`"
+        :value="title.replace(/<br\s*\/?>/g, '\n')"
+        :placeholder="`제목을 입력하세요`"
+        @updateValue="setTitle"
+      >
+      </board-write-form>
+      <board-write-form
+        id="contents"
+        label="내용"
+        :type="`textarea`"
+        :value="contents.replace(/<br\s*\/?>/g, '\n')"
+        :placeholder="`내용을 입력해주세요`"
+        @updateValue="setContents"
+      >
+      </board-write-form>
+      <div class="mt-6 flex items-center justify-end gap-x-6">
         <NuxtLink
-          :to="`/boards/${$route.params.boardId}`"
-          class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100 p-3 text-center"
+          :to="`/`"
+          class="text-sm font-semibold leading-6 text-gray-900"
         >
-          취소
+          Cancel
         </NuxtLink>
         <button
-          class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100 p-3"
-          @click="sendEdit"
+          type="button"
+          class="rounded-md bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          @click="onClickEdit"
         >
           수정
         </button>
-        <NuxtLink
-          :to="`/`"
-          class="w-24 h-12 border-2 border-emerald-700 active:bg-stone-100 p-3 text-center"
-        >
-          홈
-        </NuxtLink>
       </div>
-    </section>
+    </template>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { useRoute, useRouter } from "vue-router";
+import BoardWriteForm from "../../../../components/boardWriteForm.vue";
+import usePosts from "../../../../components/commons/api.js";
 import { ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 export default {
+  components: { BoardWriteForm },
+
   setup() {
+    const { fetchBoard, editBoard, fetchBoards } = usePosts();
     const title = ref("");
     const contents = ref("");
-    const route = useRoute();
+    const data = ref(null);
     const router = useRouter();
+    const route = useRoute();
 
-    const sendEdit = async () => {
-      const toEdit = {};
+    onMounted(async () => {
+      const fetchData = await fetchBoard(route.params.boardId); // 기존값 가져오기
+      data.value = fetchData.board;
+      title.value = fetchData.board.title;
+      contents.value = fetchData.board.contents;
+      console.log(data.value);
+    });
 
-      if (title.value !== "") {
-        toEdit.title = title.value;
+    const setTitle = value => {
+      data.value.title = value;
+    };
+
+    const setContents = value => {
+      data.value.contents = value;
+    };
+
+    const onClickEdit = async () => {
+      if (
+        title.value === data.value.title &&
+        contents.value === data.value.contents
+      ) {
+        alert("수정사항이 없습니다");
+        router.push(`/boards/${route.params.boardId}`);
+        return;
       }
+      const updateItem = {
+        title: data.value.title.replace(/(\n|\r\n)/g, "<br/>"),
+        contents: data.value.contents.replace(/(\n|\r\n)/g, "<br/>"),
+      };
 
-      if (contents.value !== "") {
-        toEdit.contents = contents.value;
-      }
+      await editBoard(route.params.boardId, updateItem);
+      alert("수정이 완료되었습니다");
 
-      console.log(route.params);
-      try {
-        await axios.patch(
-          `http://localhost:4000/boards/${route.params.boardId}/edit`,
-          toEdit,
-        );
-        alert("수정완료");
-        router.push("/");
-      } catch (error) {
-        console.log(error);
-      }
+      await fetchBoards();
+      router.push(`/boards/${route.params.boardId}`);
     };
     return {
-      sendEdit,
+      data,
+      setContents,
+      onClickEdit,
+      setTitle,
       title,
       contents,
     };

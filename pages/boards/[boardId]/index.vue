@@ -1,16 +1,16 @@
 <template>
   <div class="w-10/12 flex flex-col items-center mx-auto">
     <section class="w-full border-b-2 border-green-800 mb-12 whitespace-pre-line">
-      <h1 class="text-4xl font-semibold mb-8 h-24">
+      <h1 class="text-3xl font-semibold mb-8 h-24">
         {{ data?.board.title.replace(/<br\s*\/?>/g, "\n") }}
       </h1>
-      <div class="flex justify-between pb-12">
-        <span>아무개</span>
+      <div class="flex justify-between pb-9 text-xl">
+        <span>ooo</span>
         <span>20xx.xx.xx</span>
       </div>
     </section>
-    <section class="w-full">
-      <p id="scrollSettings" class="h-1/6 overflow-auto text-gray-600 text-xl whitespace-pre-line">
+    <section class="w-full h-2/3">
+      <p id="scrollSettings" class="h-full overflow-scroll text-gray-600 text-xl whitespace-pre-line">
         {{ data?.board.contents.replace(/<br\s*\/?>/g, "\n") }}
       </p>
     </section>
@@ -21,14 +21,14 @@
         >목록</NuxtLink
       >
       <NuxtLink
-        :to="``"
+        :to="`/boards/${route.params.boardId}/edit`"
         class="w-32 h-12 border border-green-800 hover:bg-gray-100 p-3 flex items-center justify-center hover:cursor-pointer"
         >수정</NuxtLink
       >
-      <NuxtLink
-        :to="``"
+      <button
         class="w-32 h-12 border border-green-800 hover:bg-gray-100 p-3 flex items-center justify-center hover:cursor-pointer"
-        >삭제</NuxtLink
+        @click="DeleteBoard"
+        >삭제</button
       >
     </section>
   </div>
@@ -37,11 +37,12 @@
 <script>
 import { onMounted } from "vue";
 import usePosts from "../../../components/commons/api.js";
-import { useRoute } from "vue-router";
+import { useRoute,useRouter } from "vue-router";
 export default {
   setup() {
     const route = useRoute();
-    const { fetchBoard } = usePosts();
+    const router = useRouter()
+    const { fetchBoard ,deleteBoard} = usePosts();
     const data = ref(null);
 
     // onMounted 훅을 사용하여 페이지가 로드될 때 게시판 데이터를 가져옴
@@ -49,11 +50,21 @@ export default {
     //   const boardId = this.$route.params.id; // 동적 라우트 파라미터에서 게시판 ID를 가져옴
     //   board.value = await fetchBoard(boardId);
     // });
+
+
+    const DeleteBoard = async()=>{
+        await deleteBoard(route.params.boardId)
+        router.push('/')
+   }
+    
     onMounted(async () => {
       data.value = await fetchBoard(route.params.boardId);
     });
+    
     return {
       data,
+      DeleteBoard,
+      route
     };
   },
 };
