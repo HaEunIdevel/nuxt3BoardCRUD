@@ -3,6 +3,9 @@
     <form @submit="handleSubmit">
       <div>
         <div class="pb-12">
+          <!--  -->
+          <!--  -->
+
           <section class="grid grid-cols-1 gap-x-6 sm:grid-cols-6">
             <!--  -->
             <!--  -->

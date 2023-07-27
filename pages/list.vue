@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col items-center gap-14">
     <h2 class="text-3xl">자유게시판</h2>
-    <div class="w-full flex">
+    <div class="mt-6 w-full flex items-center justify-end">
       <NuxtLink
         :to="`/boards/write`"
-        class="w-32 h-12 border border-green-800 hover:bg-gray-100 p-3 flex items-center justify-center"
+        class="rounded-md bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >작성하기</NuxtLink
       >
     </div>
