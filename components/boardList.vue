@@ -4,11 +4,7 @@
     <!--  -->
     <!--  -->
 
-    <ul
-      id="noneScroll"
-      role="list"
-      class="divide-y h-[37rem] divide-gray-100 w-full overflow-y-auto overflow-x-hidden"
-    >
+    <ul id="noneScroll" role="list" class="divide-y w-full divide-black">
       <board-item v-for="(board, i) in boards" :key="i" :board="board" :i="i" />
       <!--  -->
       <!--  -->

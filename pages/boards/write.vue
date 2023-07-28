@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto max-w-7xl sm:py-32 lg:px-8">
+  <div class="mx-auto w-8/12 sm:py-32 lg:px-8">
     <h1 class="font-bold text-3xl pb-10">작성하기</h1>
     <board-write-form
       id="title"

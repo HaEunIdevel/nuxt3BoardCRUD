@@ -11,7 +11,7 @@
             <!--  -->
             <!--  -->
 
-            <div class="col-span-full">
+            <div class="col-span-3">
               <label
                 :for="id"
                 class="block text-sm font-medium leading-6 text-gray-900"
@@ -23,13 +23,25 @@
                   :id="id"
                   type="text"
                   :value="value"
-                  class="block w-full p-3 h-12 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  class="block w-full p-3 h-16 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   :placeholder="placeholder"
                   @input="updateValue"
                 />
               </div>
             </div>
-
+            <div v-if="type === 'text'" class="col-span-3">
+              <label class="block text-sm font-medium leading-6 text-gray-900"
+                >작성자</label
+              >
+              <div class="mt-2">
+                <input
+                  v-if="type === 'text'"
+                  type="text"
+                  class="block w-full p-3 h-16 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder="작성자를 입력해주세요"
+                />
+              </div>
+            </div>
             <!--  -->
             <!--  -->
             <!--  -->
@@ -40,7 +52,7 @@
                   :id="id"
                   :placeholder="placeholder"
                   :value="value"
-                  class="block w-full h-48 resize-none p-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  class="block w-full h-96 resize-none p-3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   @input="updateValue"
                 />
               </div>
@@ -56,7 +68,7 @@
                 >사진</label
               >
               <div
-                class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
+                class="mt-2 h-72 flex justify-center items-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
               >
                 <div class="text-center">
                   <PhotoIcon
