@@ -1,11 +1,11 @@
 <template>
   <div class="w-full flex flex-col items-center mx-auto">
-    <section class="w-full border-b  mb-12 whitespace-pre-line">
+    <section class="w-full   mb-12 whitespace-pre-line">
       <h1 class="text-3xl font-semibold mb-8 h-24">
         {{ data?.board.title.replace(/<br\s*\/?>/g, "\n") }}
       </h1>
       <div class="flex justify-between">
- <div class="flex  gap-3 pb-6 text-base">
+      <div class="flex  gap-3 pb-6 text-base">
         <span class="font-bold w-16">작성자 ·</span>
         <span>20xx년 xx월 xx일</span>
       </div>
@@ -82,18 +82,10 @@
       </transition>
     </HeadlessMenu>
       </div>
-     
 
-      <!--  -->
-      <!--  -->
-      <!--  -->
- 
-  <!--  -->
-  <!--  -->
-  <!--  -->
     </section>
-    <section class="w-full h-2/3">
-      <p id="scrollSettings" class="h-full overflow-scroll text-gray-600 text-xl whitespace-pre-line">
+    <section class="w-full ">
+      <p id="scrollSettings" class="h-full text-gray-600 text-xl whitespace-pre-line">
         {{ data?.board.contents.replace(/<br\s*\/?>/g, "\n") }}
       </p>
     </section>
@@ -104,11 +96,8 @@
 <script>
 import { onMounted } from "vue";
 import usePosts from "../../../components/commons/api.js";
-import { useRoute,useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import { Menu as HeadlessMenu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-// import { ChevronDownIcon } from '@heroicons/vue/20/solid'
-// import ArchiveIcon from './archive-icon.vue'
-// import DuplicateIcon from './duplicate-icon.vue'
 import EditIcon from '../../../components/svg/EditIcon.vue'
 import BackIcon from '../../../components/svg/BackIcon.vue'
 import DeleteIcon from '../../../components/svg/DeleteIcon.vue'
@@ -126,30 +115,16 @@ export default {
   },
   setup() {
     const route = useRoute();
-    const router = useRouter()
     const { fetchBoard ,deleteBoard} = usePosts();
     const data = ref(null);
-
-   
-
-    
-
-    // onMounted 훅을 사용하여 페이지가 로드될 때 게시판 데이터를 가져옴
-    // onMounted(async () => {
-    //   const boardId = this.$route.params.id; // 동적 라우트 파라미터에서 게시판 ID를 가져옴
-    //   board.value = await fetchBoard(boardId);
-    // });
-
-
     const DeleteBoard = async()=>{
         await deleteBoard(route.params.boardId)
-        router.push('/')
+        
    }
     
     onMounted(async () => {
       data.value = await fetchBoard(route.params.boardId);
     });
-    
     return {
       data,
       DeleteBoard,
@@ -160,13 +135,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 /*  */
-#scrollSettings {
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-}
-#scrollSettings::-webkit-scrollbar {
-  display: none; /* 크롬, 사파리, 오페라, 엣지 */
-}
+
 </style>

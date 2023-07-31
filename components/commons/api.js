@@ -1,5 +1,8 @@
 import { ref } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const boards = ref(null);
 
@@ -38,8 +41,6 @@ const editBoard = async (boardId, updatedItem) => {
       `http://192.168.1.71:4000/boards/${boardId}/edit`,
       updatedItem,
     );
-    alert("수정완료");
-    router.push("/");
   } catch (err) {
     console.log(err);
   }
@@ -47,9 +48,14 @@ const editBoard = async (boardId, updatedItem) => {
 
 const deleteBoard = async boardId => {
   try {
-    await axios.delete(`http://192.168.1.71:4000/boards/${boardId}/delete`);
-    alert("삭제되었습니다");
-    router.push("/");
+    await axios.delete(`http://192.168.1.71:4000/boards/${boardId}`);
+    const result = confirm("삭제하시겠습니까?");
+    if (result) {
+      alert("삭제되었습니다");
+      router.push("/");
+    } else {
+      return;
+    }
   } catch (err) {
     console.log(err);
   }
