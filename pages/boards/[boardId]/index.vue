@@ -1,12 +1,12 @@
 <template>
-  <div class="w-full flex flex-col items-center mx-auto">
+  <div class="container w-full flex flex-col items-center mx-auto">
     <section class="w-full   mb-12 whitespace-pre-line">
       <h1 class="text-3xl font-semibold mb-8 h-24">
         {{ data?.board.title.replace(/<br\s*\/?>/g, "\n") }}
       </h1>
       <div class="flex justify-between">
-      <div class="flex  gap-3 pb-6 text-base">
-        <span class="font-bold w-16">작성자 ·</span>
+      <div class="flex  gap-2 pb-6 text-base">
+        <span class="font-bold w-12">익명 ·</span>
         <span>20xx년 xx월 xx일</span>
       </div>
 
@@ -19,7 +19,7 @@
         </MenuButton>
       </div>
       <transition
-         enter-active-class="transition duration-100 ease-out"
+      enter-active-class="transition duration-100 ease-out"
       enter-from-class="transform scale-95 opacity-0"
       enter-to-class="transform scale-100 opacity-100"
       leave-active-class="transition duration-75 ease-out"
@@ -84,24 +84,28 @@
       </div>
 
     </section>
-    <section class="w-full ">
-      <p id="scrollSettings" class="h-full text-gray-600 text-xl whitespace-pre-line">
+    <section class="w-full pb-28 h-auto border-b border-gray-300 ">
+      <p class=" text-gray-600 text-xl whitespace-pre-line">
         {{ data?.board.contents.replace(/<br\s*\/?>/g, "\n") }}
       </p>
     </section>
-   
+    <section class="w-full">
+      <board-footer/>
+    </section>
   </div>
 </template>
 
 <script>
 import { onMounted } from "vue";
 import usePosts from "../../../components/commons/api.js";
-import { useRoute } from "vue-router";
+import { useRoute,useRouter } from "vue-router";
 import { Menu as HeadlessMenu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import EditIcon from '../../../components/svg/EditIcon.vue'
 import BackIcon from '../../../components/svg/BackIcon.vue'
 import DeleteIcon from '../../../components/svg/DeleteIcon.vue'
 import VerticalEllipsis from '../../../components/svg/EllipsisVertical.vue'
+import BoardFooter from '../../../components/detail.footer.vue'
+
 export default {
    components: {
      HeadlessMenu,
@@ -112,13 +116,16 @@ export default {
    VerticalEllipsis,
     EditIcon,
     DeleteIcon,
+    BoardFooter,
   },
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const { fetchBoard ,deleteBoard} = usePosts();
     const data = ref(null);
     const DeleteBoard = async()=>{
         await deleteBoard(route.params.boardId)
+      router.push("/");
         
    }
     

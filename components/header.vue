@@ -1,5 +1,5 @@
 <template>
-  <section class="w-screen flex flex-col p-10">
+  <section class="w-screen flex flex-col p-10 sticky top-0">
     <span class="w-20 h-20 cursor-pointer" @click="moveToMain">
       <img src="/nuxt-logo.png" class="w-full h-full" />
     </span>

@@ -11,7 +11,7 @@
             <!--  -->
             <!--  -->
 
-            <div class="col-span-3">
+            <div class="col-span-full">
               <label
                 :for="id"
                 class="block text-sm font-medium leading-6 text-gray-900"
@@ -29,7 +29,7 @@
                 />
               </div>
             </div>
-            <div v-if="type === 'text'" class="col-span-3">
+            <!-- <div v-if="type === 'text'" class="col-span-3">
               <label class="block text-sm font-medium leading-6 text-gray-900"
                 >작성자</label
               >
@@ -41,7 +41,7 @@
                   placeholder="작성자를 입력해주세요"
                 />
               </div>
-            </div>
+            </div> -->
             <!--  -->
             <!--  -->
             <!--  -->
@@ -107,6 +107,8 @@
 
 <script setup>
 import { defineProps, defineEmits } from "vue";
+import PhotoIcon from "../components/svg/PhotoIcon.vue";
+
 defineProps(["type", "value", "placeholder", "id", "label"]);
 
 const emit = defineEmits(["updateValue"]);

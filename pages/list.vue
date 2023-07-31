@@ -1,55 +1,46 @@
+<!-- eslint-disable vue/attribute-hyphenation -->
 <template>
   <div class="flex flex-col items-center gap-14">
     <h2 class="text-3xl">자유게시판</h2>
     <div class="mt-6 w-full flex flex-col items-end justify-end gap-5">
-      <div>
-        <!-- <form class="relative mx-auto w-max">
-          <input
-            type="search"
-            class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:pl-16 focus:pr-4"
-          />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </form> -->
-      </div>
       <NuxtLink
         :to="`/boards/write`"
-        class="rounded-md bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        class="rounded-md bg-teal-900 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >작성하기</NuxtLink
       >
     </div>
 
     <board-list :boards="boards"></board-list>
+    <PageNation :currentPage="currentPage" :lastPage="lastPage" />
   </div>
 </template>
 
 <script>
 import usePost from "../components/commons/api.js";
 import boardList from "../components/boardList.vue";
+import PageNation from "../components/commons/pagenation/pagenation.vue";
 import { onMounted } from "vue";
 export default {
-  components: { boardList },
+  components: { boardList, PageNation },
   setup() {
     const { boards, fetchBoards } = usePost();
+    //
+    console.log(boards?.value.length); // 총 개수
+    // 마지막 개수 = 총개수 / 페이지당 보여줄 항목
+    // 페이지 번호 클릭시 해당 페이지 보여주기 => 배열에서 쪼개기
+    // 이전 페이지 클릭시..
+    // 다음 페이지 클릭시...
+    const lastPage = Math.ceil((boards?.value.length ?? 5) / 5);
+    // 현재 페이지
+    const currentPage = 1;
 
     onMounted(() => {
       fetchBoards();
     });
-
     return {
       boards,
+      lastPage,
+      currentPage,
     };
   },
 };

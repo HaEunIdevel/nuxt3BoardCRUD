@@ -6,45 +6,6 @@
 
     <ul id="noneScroll" role="list" class="divide-y w-full divide-black">
       <board-item v-for="(board, i) in boards" :key="i" :board="board" :i="i" />
-      <!--  -->
-      <!--  -->
-      <!-- <li
-        v-for="person in people"
-        :key="person.email"
-        class="flex justify-between gap-x-6 py-5"
-      >
-        <div class="flex gap-x-4">
-          <div class="min-w-0 flex-auto">
-            <p class="text-sm font-semibold leading-6 text-gray-900">
-              {{ person.name }}
-            </p>
-            <p class="mt-1 truncate text-xs leading-5 text-gray-500">
-              {{ person.email }}
-            </p>
-          </div>
-        </div>
-        <div class="hidden sm:flex sm:flex-col sm:items-end">
-          <p class="text-sm leading-6 text-gray-900">{{ person.role }}</p>
-          <p
-            v-if="person.lastSeen"
-            class="mt-1 text-xs leading-5 text-gray-500"
-          >
-            Last seen
-            <time :datetime="person.lastSeenDateTime">{{
-              person.lastSeen
-            }}</time>
-          </p>
-          <div v-else class="mt-1 flex items-center gap-x-1.5">
-            <div class="flex-none rounded-full bg-emerald-500/20 p-1">
-              <div class="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            </div>
-            <p class="text-xs leading-5 text-gray-500">Online</p>
-          </div>
-        </div>
-      </li> -->
-
-      <!--  -->
-      <!--  -->
     </ul>
 
     <!--  -->
