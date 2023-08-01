@@ -11,11 +11,14 @@
     </div>
 
     <board-list :boards="newBoards"></board-list>
+
     <PageNation
       :totalItems="totalItems"
       :perPageItems="perPageItems"
       :currentPage="currentPage"
       @page="setCurrentPage"
+      @preButton="setPrevPage"
+      @nextButton="setNextPage"
     />
   </div>
 </template>
@@ -54,7 +57,14 @@ export default {
 
     const setCurrentPage = page => {
       currentPage.value = page;
-      console.log(currentPage.value);
+      return currentPage.value;
+    };
+    const setPrevPage = () => {
+      currentPage.value = currentPage.value - 1;
+      return currentPage.value;
+    };
+    const setNextPage = () => {
+      currentPage.value = currentPage.value + 1;
       return currentPage.value;
     };
 
@@ -65,6 +75,8 @@ export default {
       newBoards,
       currentPage,
       setCurrentPage,
+      setPrevPage,
+      setNextPage,
     };
   },
 };
