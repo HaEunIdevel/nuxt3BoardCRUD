@@ -34,15 +34,13 @@
 
 <script>
 import boardItem from "./boardItem.vue";
-import usePost from "./commons/api.js";
 export default {
   components: { boardItem },
-  setup() {
-    const { boards } = usePost();
-
-    return {
-      boards,
-    };
+  props: {
+    boards: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>

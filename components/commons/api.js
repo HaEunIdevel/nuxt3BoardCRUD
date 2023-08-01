@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import axios from "axios";
 
-const boards = ref(null);
+const boards = ref();
 
 const fetchBoards = async () => {
   try {

@@ -43,13 +43,11 @@
             />
           </svg>
         </a>
-        <!-- Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" -->
         <li
-          v-for="pageNumber in pages"
-          :key="pageNumber"
-          :id="pageNumber"
+          v-for="(pageNumber, i) in pages"
+          :key="i"
           :class="{ active: pageNumber === currentPage }"
-          class="page-item"
+          class="list-none"
           @click="changePage(pageNumber)"
         >
           <a class="page-link" href="#">
@@ -61,7 +59,6 @@
           class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
         >
           <span class="sr-only">Next</span>
-          <!-- <ChevronRightIcon class="h-5 w-5" aria-hidden="true" /> -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -83,32 +80,33 @@
 </template>
 
 <script>
-// import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid'
+import { ref } from "vue";
 export default {
-  props: { currentPage, lastPage },
+  props: {
+    totalItems: {
+      type: Number,
+      required: true,
+    },
+    perPageItems: {
+      type: Number,
+      required: true,
+    },
+  },
   setup(props, { emit }) {
-    // 전체 페이지 (마지막 페이지)
-    const totalPage = props.lastPage;
-    const pages = computed(() => {
-      const pages = [];
-      for (let i = 1; i <= props.lastPage; i++) {
-        pages.push(i);
-      }
-      return pages;
-    });
+    const pages = ref([]);
+    const totalPages = Math.ceil(props?.totalItems / props.perPageItems);
 
-    // 페이지 클릭
-    const onClickPage = e => {
-      const clickedPage = e.currentTarget.id; // 클릭한 현재 페이지 번호또는 id??
-      // 현재 페이지를 클릭된 페이지로 변경
-      if (props.currentPage === clickedPage) {
-        props.currentPage = clickedPage;
+    for (let i = 1; i <= totalPages; i++) {
+      pages.value.push(i);
+    }
+    const changePage = page => {
+      if (page >= 1 && page <= totalPages) {
+        emit("page", page);
       }
     };
     return {
       pages,
-      totalPage,
-      onClickPage,
+      changePage,
     };
   },
 };
