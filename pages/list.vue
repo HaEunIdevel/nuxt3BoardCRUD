@@ -14,6 +14,7 @@
     <PageNation
       :totalItems="totalItems"
       :perPageItems="perPageItems"
+      :currentPage="currentPage"
       @page="setCurrentPage"
     />
   </div>
@@ -54,6 +55,7 @@ export default {
     const setCurrentPage = page => {
       currentPage.value = page;
       console.log(currentPage.value);
+      return currentPage.value;
     };
 
     return {

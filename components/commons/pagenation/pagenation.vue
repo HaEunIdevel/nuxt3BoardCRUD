@@ -46,8 +46,25 @@
         <li
           v-for="(pageNumber, i) in pages"
           :key="i"
-          :class="{ active: pageNumber === currentPage }"
-          class="list-none"
+          :class="[
+            'list-none',
+            'relative',
+            'inline-flex',
+            'items-center',
+            'px-4',
+            'py-2',
+            'text-sm',
+            'font-semibold',
+            'text-gray-900',
+            'ring-1',
+            'ring-inset',
+            'ring-gray-300',
+            'focus:z-20',
+            'focus:outline-offset-0',
+            'cursor-pointer',
+            { 'bg-indigo-600': isCurrentPage(pageNumber) },
+            { 'text-white': isCurrentPage(pageNumber) },
+          ]"
           @click="changePage(pageNumber)"
         >
           <a class="page-link" href="#">
@@ -80,7 +97,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 export default {
   props: {
     totalItems: {
@@ -88,6 +105,10 @@ export default {
       required: true,
     },
     perPageItems: {
+      type: Number,
+      required: true,
+    },
+    currentPage: {
       type: Number,
       required: true,
     },
@@ -104,9 +125,16 @@ export default {
         emit("page", page);
       }
     };
+
+    // 선택된 페이지와 현재 페이지가 같음
+    const isCurrentPage = computed(() => page => {
+      return props.currentPage === page;
+    });
+
     return {
       pages,
       changePage,
+      isCurrentPage,
     };
   },
 };
